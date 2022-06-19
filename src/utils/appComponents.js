@@ -1,14 +1,13 @@
 import React from "react";
-import MenuBar from "../components/menu";
+import DefaultTemplate from "./defaultTemplate";
 
 const AppComponents = ({children}) => {
 
     return (
-        <div>
-            <MenuBar />
+        <DefaultTemplate>
 
             {children}
-        </div>
+        </DefaultTemplate>
     );
 };
 
