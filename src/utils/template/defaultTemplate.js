@@ -1,6 +1,6 @@
 import React from 'react';
 import {styled} from '@mui/material/styles';
-import MenuBar from "../components/menu";
+import MenuBar from "./menu";
 
 const Main = styled('main')(({theme}) => ({
     display: 'block',

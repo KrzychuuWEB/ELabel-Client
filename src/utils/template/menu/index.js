@@ -9,7 +9,7 @@ import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import {useTheme} from "@mui/material";
-import {APP_NAME} from "../../utils/constants";
+import {APP_NAME} from "../../constants";
 import {Login} from "@mui/icons-material";
 import LeftMenuDrawer from "./leftMenu";
 import {Link} from "react-router-dom";

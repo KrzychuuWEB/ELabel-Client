@@ -1,5 +1,5 @@
 import React from "react";
-import DefaultTemplate from "./defaultTemplate";
+import DefaultTemplate from "./template/defaultTemplate";
 
 const AppComponents = ({children}) => {
 
