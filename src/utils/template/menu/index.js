@@ -17,10 +17,10 @@ import {Link} from "react-router-dom";
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.primary.main, 0.05),
+    backgroundColor: alpha(theme.palette.primary.main, 0.15),
     transition: "0.2s",
     '&:hover': {
-        backgroundColor: alpha(theme.palette.primary.main, 0.15),
+        backgroundColor: alpha(theme.palette.primary.main, 0.25),
     },
     marginLeft: 0,
     width: "100%",

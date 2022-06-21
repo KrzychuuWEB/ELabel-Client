@@ -1,10 +1,20 @@
 import React from "react";
-import {Box, Divider, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {
+    Box,
+    Divider,
+    Drawer,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    ListSubheader
+} from "@mui/material";
 import {Person, ViewList} from "@mui/icons-material";
 
 const menuItemsSectionOne = [
     {
-        name: "Produkty",
+        name: "Lista produktów",
         href: "/products",
         icon: <ViewList/>,
     },
@@ -12,7 +22,7 @@ const menuItemsSectionOne = [
 
 const menuItemsSectionTwo = [
     {
-        name: "Użytkownicy",
+        name: "Lista użytkowników",
         href: "/users",
         icon: <Person/>,
     },
@@ -31,6 +41,7 @@ const LeftMenuDrawer = ({isOpenLeftMenu, toggleLeftMenu}) => {
                 role="presentation"
             >
                 <List>
+                    <ListSubheader>Produkty</ListSubheader>
                     {menuItemsSectionOne.map(item => (
                         <ListItem key={item.name} disablePadding>
                             <ListItemButton href={item.href}>
@@ -41,7 +52,10 @@ const LeftMenuDrawer = ({isOpenLeftMenu, toggleLeftMenu}) => {
                             </ListItemButton>
                         </ListItem>
                     ))}
+
                     <Divider/>
+
+                    <ListSubheader>Użytkownicy</ListSubheader>
                     {menuItemsSectionTwo.map(item => (
                         <ListItem key={item.name} disablePadding>
                             <ListItemButton href={item.href}>
