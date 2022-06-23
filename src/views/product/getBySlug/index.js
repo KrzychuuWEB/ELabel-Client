@@ -5,6 +5,21 @@ import {Abc, Edit} from "@mui/icons-material";
 import BoxWithIcon from "../../../components/box/withIcon";
 import Typography from "@mui/material/Typography";
 import {Avatar, Grid, List, ListItem, ListItemAvatar, ListItemText, Paper, Skeleton, Tab, Tabs} from "@mui/material";
+import LabelCard from "../../../components/label/card";
+import {styled} from "@mui/material/styles";
+
+const FlexLabelCard = styled('div')(({theme}) => ({
+    display: "flex",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    flexWrap: "wrap",
+    marginTop: 20,
+
+    " > div": {
+        flexBasis: "24%",
+        margin: 5,
+    }
+}));
 
 const ProductGetBySlugView = () => {
     const {productSlug} = useParams();
@@ -57,7 +72,7 @@ const ProductGetBySlugView = () => {
                                 </ListItemAvatar>
                                 <ListItemText
                                     primary="Slug produktu"
-                                    secondary={product.slug}
+                                    secondary={loading ? <Skeleton width={60}/> : product.slug}
                                 />
                             </ListItem>
                         </Grid>
@@ -71,7 +86,7 @@ const ProductGetBySlugView = () => {
                                 </ListItemAvatar>
                                 <ListItemText
                                     primary="Data utworzenia produktu"
-                                    secondary={product.createdAt}
+                                    secondary={loading ? <Skeleton width={60}/> : product.createdAt}
                                 />
                             </ListItem>
                         </Grid>
@@ -81,16 +96,25 @@ const ProductGetBySlugView = () => {
 
             <div>
                 <Paper sx={{marginTop: 5, width: "100%"}}>
-                    <Tabs value={tab} onChange={onChangeTab} centerd>
-                        <Tab label="Etykiety małe" />
-                        <Tab label="Etykiety duże" />
-                        <Tab label="Inna firma" />
+                    <Tabs value={tab} onChange={onChangeTab}>
+                        <Tab label="Etykiety małe"/>
+                        <Tab label="Etykiety duże"/>
+                        <Tab label="Inna firma"/>
                     </Tabs>
                 </Paper>
 
-                {tab === 0 && "małe"}
-                {tab === 1 && "duże"}
-                {tab === 2 && "inna"}
+                {/*{tab === 0 && "małe"}*/}
+                {/*{tab === 1 && "duże"}*/}
+                {/*{tab === 2 && "inna"}*/}
+
+                <FlexLabelCard>
+                    <LabelCard/>
+                    <LabelCard/>
+                    <LabelCard/>
+                    <LabelCard/>
+                    <LabelCard/>
+                    <LabelCard/>
+                </FlexLabelCard>
             </div>
         </div>
     );
