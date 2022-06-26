@@ -1,30 +1,35 @@
 import React from "react";
-import {
-    Box,
-    Divider,
-    Drawer,
-    List,
-    ListItem,
-    ListItemButton,
-    ListItemIcon,
-    ListItemText,
-    ListSubheader
-} from "@mui/material";
-import {Person, ViewList} from "@mui/icons-material";
+import {Box, Divider, Drawer, List, ListSubheader} from "@mui/material";
+import {Add, ViewList} from "@mui/icons-material";
+import {routes} from "../../appRoutes";
+import LeftMenuItem from "./leftMenuItem";
 
-const menuItemsSectionOne = [
+const menuItemsProductSection = [
     {
         name: "Lista produktów",
-        href: "/products",
+        href: routes.home,
         icon: <ViewList/>,
+    },
+    {
+        name: "Dodaj produkt",
+        href: routes.product.create,
+        icon: <Add/>,
     },
 ]
 
-const menuItemsSectionTwo = [
+const menuItemsLabelSection = [
+    {
+        name: "Dodaj szablon etykiety",
+        href: routes.label.create,
+        icon: <Add/>,
+    },
+]
+
+const menuItemsUserSection = [
     {
         name: "Lista użytkowników",
         href: "/users",
-        icon: <Person/>,
+        icon: <ViewList/>,
     },
 ]
 
@@ -37,35 +42,26 @@ const LeftMenuDrawer = ({isOpenLeftMenu, toggleLeftMenu}) => {
             onClose={() => toggleLeftMenu()}
         >
             <Box
-                sx={{width: 250}}
+                sx={{width: 300}}
                 role="presentation"
             >
                 <List>
                     <ListSubheader>Produkty</ListSubheader>
-                    {menuItemsSectionOne.map(item => (
-                        <ListItem key={item.name} disablePadding>
-                            <ListItemButton href={item.href}>
-                                <ListItemIcon>
-                                    {item.icon}
-                                </ListItemIcon>
-                                <ListItemText primary={item.name}/>
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
+                    <LeftMenuItem
+                        items={menuItemsProductSection}
+                    />
 
                     <Divider/>
+                    <ListSubheader>Etykiety</ListSubheader>
+                    <LeftMenuItem
+                        items={menuItemsLabelSection}
+                    />
 
+                    <Divider/>
                     <ListSubheader>Użytkownicy</ListSubheader>
-                    {menuItemsSectionTwo.map(item => (
-                        <ListItem key={item.name} disablePadding>
-                            <ListItemButton href={item.href}>
-                                <ListItemIcon>
-                                    {item.icon}
-                                </ListItemIcon>
-                                <ListItemText primary={item.name}/>
-                            </ListItemButton>
-                        </ListItem>
-                    ))}
+                    <LeftMenuItem
+                        items={menuItemsUserSection}
+                    />
                 </List>
             </Box>
         </Drawer>

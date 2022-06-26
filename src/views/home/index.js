@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {
     Avatar,
-    Divider,
+    Divider, Fab,
     List,
     ListItemAvatar,
     ListItemButton,
@@ -10,10 +10,16 @@ import {
     Paper,
     Skeleton
 } from "@mui/material";
-import {Abc} from "@mui/icons-material";
+import {Abc, Add} from "@mui/icons-material";
 import {productMock, productsInMemory} from "../../api/productsInMemory";
 import {Link} from "react-router-dom";
 import {routes} from "../../utils/appRoutes";
+
+const fabStyle = {
+    position: "absolute",
+    bottom: 35,
+    right: 35,
+};
 
 const HomeView = () => {
     const [products, setProducts] = useState(productMock);
@@ -23,7 +29,7 @@ const HomeView = () => {
         return await new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve();
-            }, 10000);
+            }, 3000);
         });
     }
 
@@ -101,6 +107,14 @@ const HomeView = () => {
                     </Paper>
                 ))
             }
+
+            <Fab
+                sx={fabStyle}
+                href={routes.product.create}
+                color="secondary"
+            >
+                <Add />
+            </Fab>
         </div>
     );
 };
