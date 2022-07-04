@@ -45,3 +45,41 @@ export const productMock = [
         createdAt: "2021-06-22",
     }
 ]
+
+
+const labelPositions = [
+    {
+        id: 1,
+        attr: "<p style='background-color: red; color: white'>{product.name}</p>",
+    },
+    {
+        attr: "<p style='background-color: green; color: white'>{product.description}</p>",
+    },
+    {
+        attr: "<p style='background-color: orange; color: white'>{product_marking.bestBefore}</p>",
+    },
+    {
+        attr: "<p style='background-color: black; color: white'>{product_details.title[0]}</p>",
+    },
+    {
+        attr: "<p style='background-color: blue; color: white'>{product_details.title[1]}</p>",
+    },
+]
+
+const labels = {
+    product: {
+        name: "Babka jajowata łuska",
+        description: "sposób użycia: 1/2 łyżki na 100ml wody",
+    },
+    product_marking: {
+        bestBefore: "09/2023",
+    },
+    product_details: [
+        {
+            title: "Zawiera C02",
+        },
+        {
+            title: "Może zawierać łupiny",
+        },
+    ],
+}

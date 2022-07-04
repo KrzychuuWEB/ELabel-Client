@@ -1,11 +1,12 @@
 import React from "react";
 import {TextField} from "@mui/material";
 
-const CustomFormTextField = ({formik, name, label}) => {
+const CustomFormTextField = ({formik, name, label, sx}) => {
 
     return (
         <TextField
-            sx={{marginBottom: 2}}
+            sx={sx}
+            style={{marginBottom: 2}}
             fullWidth
             id={name}
             name={name}

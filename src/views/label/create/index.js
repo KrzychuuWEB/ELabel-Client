@@ -1,96 +1,116 @@
 import React from "react";
+import {Box, Button, Paper, Step, StepLabel, Stepper} from "@mui/material";
+import ConfigStep from "./steps/configStep";
+import {styled} from "@mui/material/styles";
+import CreateTemplateStep from "./steps/createTemplate";
 import {useFormik} from "formik";
-import CustomFormTextField from "../../../components/form/textField";
-import Typography from "@mui/material/Typography";
+import {ConfigStepValidationSchema} from "./steps/forms/validationsSchema";
+
+const steps = [
+    "Konfiguracja szablonu",
+    "Tworzenie szablonu",
+    "Podsumowanie",
+];
+
+const RootContentStep = styled('div')(({theme}) => ({
+    marginTop: 40,
+    marginBottom: 20,
+}));
+
+const RootContentAndButtons = styled('div')(({theme}) => ({
+    width: "75%",
+    marginLeft: "auto",
+    marginRight: "auto",
+}));
 
 const LabelTemplateCreateView = () => {
+    const [activeStep, setActiveStep] = React.useState(1);
+    const [productId, setProductId] = React.useState(1);
+
+    const isLastStep = () => {
+        return activeStep === steps.length - 1;
+    };
+
+    const handleNextStep = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    };
+
+    const handleBackStep = () => {
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
+
+    const handleProductIdFromSelect = e => {
+        setProductId(e.target.value);
+    }
+
     const formik = useFormik({
         initialValues: {
+            label_id: 1,
             name: "",
-            width: 0,
-            height: 0,
+        },
+        validationSchema: ConfigStepValidationSchema,
+        onSubmit: (values, helpers) => {
+            if (!isLastStep()) {
+                helpers.setSubmitting(false);
+                handleNextStep();
+                return;
+            }
 
+            console.log(values);
         },
     });
 
-    const labelPositions = [
-        {
-            attr: "product.name",
-            x: 40,
-            y: 10,
-            fontSize: 24,
-        },
-        {
-            attr: "product.description",
-            x: 100,
-            y: 50,
-        },
-        {
-            attr: "product_marking.bestBefore",
-            x: 50,
-            y: 200,
-        },
-        {
-            attr: "product_details.title[0]",
-            x: 100,
-            y: 250,
-        },
-    ]
-
-    const labels = {
-        product: {
-            name: "Babka jajowata łuska",
-            description: "sposób użycia: 1/2 łyżki na 100ml wody",
-        },
-        product_marking: {
-            bestBefore: "09/2023",
-        },
-        product_details: [
-            {
-                title: "Zawiera C02",
-            },
-            {
-                title: "Może zawierać łupiny",
-            },
-        ],
-    }
-
-    const changeVariableToText = variableToChange => {
-        let splitVariable = variableToChange.split(".");
-
-        if (variableToChange.indexOf("[") > 0) {
-            return labels[splitVariable[0]][variableToChange.replace(/[^0-9]/g, "")].title;
-        }
-
-        return labels[splitVariable[0]][splitVariable[1]];
-    }
-
     return (
-        <div>
-            <form autoComplete="off" onSubmit={formik.handleSubmit}>
-                <CustomFormTextField
-                    name="name"
-                    label="Nazwa szablonu"
-                    formik={formik}
-                />
-            </form>
+        <form onSubmit={formik.handleSubmit} autoComplete="off">
+            <Paper sx={{width: '100%', padding: 2, boxSizing: "border-box"}}>
+                <Stepper sx={{marginTop: 2}} activeStep={activeStep} alternativeLabel>
+                    {steps.map((step) => (
+                        <Step key={step}>
+                            <StepLabel>{step}</StepLabel>
+                        </Step>
+                    ))}
+                </Stepper>
 
+                <RootContentAndButtons>
+                    {
+                        activeStep === steps.length - 1 ? (
+                            <div>
+                                <Box sx={{display: 'flex', justifyContent: "flex-end", pt: 2}}>
+                                    <Button type="submit">
+                                        Zapisz
+                                    </Button>
+                                </Box>
+                            </div>
+                        ) : (
+                            <div>
+                                <RootContentStep>
+                                    {activeStep === 0 && <ConfigStep formik={formik}
+                                                                     handleProductIdFromSelect={handleProductIdFromSelect}
+                                                                     productId={productId}
+                                    />}
+                                    {activeStep === 1 && <CreateTemplateStep />}
+                                </RootContentStep>
 
-            <div style={{width: 300, height: 300, position: "relative", border: "1px dashed #000"}}>
-                {
-                    labelPositions.map(item => (
-                        <Typography style={{
-                            top: item.y,
-                            left: item.x,
-                            position: "absolute",
-                            fontSize: item.fontSize
-                        }}>
-                            {changeVariableToText(item.attr)}
-                        </Typography>
-                    ))
-                }
-            </div>
-        </div>
+                                <Box sx={{display: 'flex', flexDirection: 'row', pt: 2}}>
+                                    <Button
+                                        color="inherit"
+                                        disabled={activeStep === 0}
+                                        onClick={handleBackStep}
+                                        sx={{mr: 1}}
+                                    >
+                                        Wstecz
+                                    </Button>
+                                    <Box sx={{flex: '1 1 auto'}}/>
+                                    <Button type="submit">
+                                        {isLastStep() ? "Zapisz" : "Dalej"}
+                                    </Button>
+                                </Box>
+                            </div>
+                        )
+                    }
+                </RootContentAndButtons>
+            </Paper>
+        </form>
     );
 };
 
